@@ -9,6 +9,7 @@ This project focuses on the backend processes involved in extracting fitness-rel
 - [Garmin - LoginDemo](#garmin---logindemo)
 - [Wahoo API - Data Extraction](#wahoo-api---data-extraction)
 - [FIT Conversion Scripts](#fit-conversion-scripts)
+- [Process Overview](#process-overview)
 - [Glossary](#glossary)
 
 ## Documentation
@@ -52,6 +53,9 @@ The **FIT Conversion Scripts** are responsible for converting data from propriet
 - Converts raw FIT files into CSV format.
 - Extracts relevant metrics such as GPS coordinates, heart rate, and performance data.
 - Ensures compatibility with various data analysis platforms.
+
+## Process Overview
+This document details the pipelining of the data flow and shows how it can be converted to be utilised in GCP process, so it can be stored and accessed securely for Data Analysis usage.
 
 ## Glossary
 
