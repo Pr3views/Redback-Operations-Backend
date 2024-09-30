@@ -10,7 +10,9 @@ This project focuses on the backend processes involved in extracting fitness-rel
 - [Wahoo API - Data Extraction](#wahoo-api---data-extraction)
 - [FIT Conversion Scripts](#fit-conversion-scripts)
 - [Process Overview](#process-overview)
+- [Redback Fit Backend](#redback-fit-backend)
 - [Glossary](#glossary)
+
 
 ## Documentation
 
@@ -57,12 +59,88 @@ The **FIT Conversion Scripts** are responsible for converting data from propriet
 ## Process Overview
 This document details the pipelining of the data flow and shows how it can be converted to be utilised in GCP process, so it can be stored and accessed securely for Data Analysis usage.
 
-## Glossary
 
-- **Documentation:** Refers to the complete process of backend development, including the extraction of data from fitness APIs (Garmin and Wahoo), data processing, and the utilization of GCP services for storing, converting, and analyzing the data. The documentation also provides a brief overview of the GCP services used in the process, such as Cloud Storage for storing raw files and BigQuery for data analysis.
-  
-- **Garmin - LoginDemo:** A backend component that handles user authentication and data extraction from the Garmin API. It retrieves various fitness metrics (e.g., steps, heart rate, GPS data) and stores them in raw formats like FIT files.
 
-- **Wahoo API - Data Extraction:** A backend module that connects to Wahoo's API, allowing for the extraction of cycling, heart rate, and other performance metrics from Wahoo fitness devices. Like Garmin, data is pulled in a raw format and processed for conversion.
 
-- **FIT Conversion Scripts:** A set of scripts designed to convert proprietary FIT files (Flexible and Interoperable Data Transfer files) into CSV format. These scripts facilitate the transformation of raw fitness data into a format that is more accessible for analysis, reporting, and visualization purposes.
+## Redback Fit Backend
+
+This is the backend API for the Redback Fit application, built with Flask.
+
+### Project Structure
+
+redback_cms/
+│
+├── app/
+│ ├── init .py
+│ ├── models.py
+│ ├── routes/
+│ │ ├── init .py
+│ │ ├── auth.py
+│ │ 
+│ └── utils.py
+│
+├── config.py
+├── requirements.txt
+└── run.py
+
+
+### Setup and Installation
+
+1. Clone the repository:
+git clone https://github.com/Pr3views/Redback-Operations-Backend.git
+
+
+
+
+2. Activate the virtual environment:
+- On Windows: `env\Scripts\activate`
+- On macOS and Linux: `source env/bin/activate`
+
+3. Install the required packages:
+pip install -r requirements.txt
+
+
+4. Set up environment variables:
+Create a `.env` file in the project root with the following content:
+
+
+FLASK_APP=run.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=sqlite:///redback_fit.db # in developmenthttps://github.com/Redback-Operations/redback-cms.git
+
+
+
+
+
+### Running the Application
+
+To run the application, use the following command:
+
+
+python run.py
+
+
+The API will be available at `http://127.0.0.1:5000/`.
+
+### API Endpoints
+
+#### Authentication
+
+- Register a new user:
+  - POST `/auth/register`
+  - Body: `{"username": "string", "email": "string", "password": "string"}`
+
+- Login:
+  - POST `/auth/login`
+  - Body: `{"username": "string", "password": "string"}`
+
+
+
+### Database Models
+
+#### User
+- id: Integer, primary key
+- username: String, unique
+- email: String, unique
+- password_hash: String
